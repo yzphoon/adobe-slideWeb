@@ -1,14 +1,14 @@
 const isMobile = $(window).width() <= 480;
-const $slide = $('#Slide').find('grid');
-const $grid = $slide.;
+const $slide = $('#Slide');
+const $grid = $slide.find('.grid');
 const $nav = $('#Nav');
+const $btns = $nav.find('.nav-btn');
 
-
-console.log('isMobil = ' + isMobile);
 
 function setGrid() {
     if (isMobile) {
         $grid.addClass('grid-2');
+        console.log('slide', $slide)
         return;
     }
     $grid.addClass('grid-3');
@@ -24,17 +24,6 @@ function setScroll() {
             $nav.addClass('nav-active');
         }
     });
-}
-
-function setInit() {
-    setGrid();
-    //其他載入畫面的函式庫
-}
-
-function setEvent() {
-    setScroll();
-    setFancybox();
-    //其他事件的函式庫
 }
 
 function setFancybox() {
@@ -74,6 +63,62 @@ function setFancybox() {
         }
     });
 
+}
+
+function setClickBtn() {
+    $btns.click(function() {
+        $(this)
+            .attr('disabled', true)
+            .siblings().attr('disabled', false);
+
+        const index = $(this).index();
+        // if(index == 0) {
+        //    $slide.css('transform', 'translate(0, 0)');
+        // } else if(index == 1) {
+        //     $slide.css('transform', 'translate(-100vw, 0)');
+        // } else if(index == 2) {
+        //     $slide.css('transform', 'translate(-200vw, 0)');
+        // } else if(index == 3) {
+        //     $slide.css('transform', 'translate(0, -100vh)');
+        // } else if(index == 4) {
+        //     $slide.css('transform', 'translate(-100vw, -100vh)');
+        // } else if(index == 5) {
+        //     $slide.css('transform', 'translate(-200vw, -100vh)');
+        // }
+        switch (index) {
+            case 0:
+                $slide.css('transform', 'translate(0, 0)');
+                break;
+            case 1:
+                $slide.css('transform', 'translate(-100vw, 0)');
+                break;
+            case 2:
+                $slide.css('transform', 'translate(-200vw, 0)');
+                break;
+            case 3:
+                $slide.css('transform', 'translate(0, -100vh)');
+                break;
+            case 4:
+                $slide.css('transform', 'translate(-100vw, -100vh)');
+                break;
+            case 5:
+                $slide.css('transform', 'translate(-200vw, -100vh)');
+                break;
+        }
+    });
+}
+
+function setInit() {
+    setGrid();
+    $nav.find('.nav-btn').eq(0).attr('disabled', true);
+    //其他載入畫面的函式庫
+}
+
+function setEvent() {
+    setScroll();
+    setFancybox();
+    setClickBtn();
+    //其他事件的函式庫
 }
 
 setInit();
